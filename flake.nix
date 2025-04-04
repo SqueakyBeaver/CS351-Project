@@ -18,8 +18,9 @@
             (with pkgs.python311Packages; [
               pip
               venvShellHook
-              mariadb
-              mysqlclient
+              dbus-python
+              keyring
+              mysql-connector 
             ]);
         };
       });
