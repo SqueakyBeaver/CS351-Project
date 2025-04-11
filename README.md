@@ -12,3 +12,8 @@ Insert project description here
   - `README.md`: This file! It's normally used to explain the project
 - Source files
   - Found in the directory/folder `src/`
+
+# TODO
+- [ ] Database config (probably use JSON)
+- [ ] GUI windows
+- [ ] Glue everything together
