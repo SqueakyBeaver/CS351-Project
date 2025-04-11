@@ -1,5 +1,4 @@
-from PySide6 import QtCore, QtWidgets, QtGui
-
+from PySide6 import QtCore, QtWidgets
 # To run: use the command py -3 src/UI/example.py
 
 

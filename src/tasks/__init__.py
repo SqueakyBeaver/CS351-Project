@@ -2,7 +2,4 @@
 # So we can import tasks and then use tasks.ExampleTask
 __all__ = ["BaseTask", "ExampleTask"]
 
-from . import ExampleTask
-from . import BaseTask
-
-
+from . import BaseTask, ExampleTask
