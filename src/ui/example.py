@@ -1,4 +1,5 @@
 from PySide6 import QtCore, QtWidgets
+
 # To run: use the command py -3 src/UI/example.py
 
 
@@ -10,11 +11,9 @@ class ExampleWidget(QtWidgets.QWidget):
         self.say = ["Go away >:(", "Wait, no come back!"]
 
         self.button = QtWidgets.QPushButton(self.say[0])
-        self.text = QtWidgets.QLabel(
-            self.hello[0],
-        )
+        self.text = QtWidgets.QLabel(self.hello[0])
         self.text.setAlignment(QtCore.Qt.AlignmentFlag.AlignCenter)
-        
+
         self.button.clicked.connect(self.clickButton)
 
         layout = QtWidgets.QVBoxLayout()
@@ -22,7 +21,6 @@ class ExampleWidget(QtWidgets.QWidget):
         layout.addWidget(self.button)
 
         self.setLayout(layout)
-
 
     @QtCore.Slot()
     def clickButton(self):
@@ -39,7 +37,7 @@ class ExampleWidget(QtWidgets.QWidget):
 # the code in this if statement
 if __name__ == "__main__":
     import sys
-    
+
     # Create the main application
     # This should only be done once per application,
     # so it should be in main.py
