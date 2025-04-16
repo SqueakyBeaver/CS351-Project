@@ -1,6 +1,7 @@
 import json
 
 import mysql.connector
+from mysql.connector import errorcode
 
 def _init_connection() -> mysql.connector.MySQLConnection:
     """
@@ -51,17 +52,23 @@ def _populate_db(connection: mysql.connector.MySQLConnection):
         _ = db_init.readline()
             
         statement = ""
+        skipped = False
         for i in db_init:
             if "CREATE TABLE" in i:
                 i = i.replace("CREATE TABLE", "CREATE TABLE IF NOT EXISTS")
             statement += i
             if ";" not in i:
                 continue
-            print(statement)
-            cursor.execute(statement)
-            statement = ""
+            try:
+                cursor.execute(statement)
+            except mysql.connector.IntegrityError as e:
+                if e.errno == errorcode.ER_DUP_ENTRY:
+                    skipped = True        
+            finally:
+                statement = ""
+
+        if skipped:
+            print("Skipped some duplicate entries (this is okay)")
         
 db_conn = _init_connection()
-
-if __name__ == "__main__":
-    _populate_db(db_conn)
+_populate_db(db_conn)

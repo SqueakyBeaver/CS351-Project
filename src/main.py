@@ -1,2 +1,6 @@
-print("Placeholder so this folder gets committed")
+import dbcfg
 
+if dbcfg.db_conn.is_connected():
+    print("Database is connected and configured")
+else:
+    print("Database not connected. Ohno")
