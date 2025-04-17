@@ -8,8 +8,7 @@ class ExampleTask(BaseTask):
         super().__init__(*args, **kwargs)
 
     def runTask(self, input):
-        cursor = dbcfg.dbConn.cursor()
-        # Execute an SQL query
+        cursor = dbcfg.db_conn.cursor()  # Execute an SQL query
         # cursor.execute("")
-     
+
         return "Pretend I did an SQL qury"

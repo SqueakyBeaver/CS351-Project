@@ -3,9 +3,13 @@ import json
 import mysql.connector
 from mysql.connector import errorcode
 
-def _init_connection() -> mysql.connector.MySQLConnection:
+def _init_connection(_dbname: str | None = None) -> mysql.connector.MySQLConnection:
     """
     Initiate a database connection, configured via a JSON file
+
+    :param _dbname: Optional name of database to use for all operations \n
+    (mainly used for testing)
+    :type _dbname: Optional[str]
     """
     try:
         with open("db_cfg.json", "r") as file:
@@ -33,8 +37,8 @@ def _init_connection() -> mysql.connector.MySQLConnection:
     # Note: using %s to properly sanitize inputs does 
     # not work with table, column, database, etc. names
     try:
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {dbname}")
-        cursor.execute(f"USE {dbname}")
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {_dbname or dbname}")
+        cursor.execute(f"USE {_dbname or dbname}")
     except mysql.connector.DatabaseError as e:
         print(f"Something went wrong while trying to create/use the database: {e}")
 

@@ -1,5 +1,6 @@
 # This file makes the tasks directory a module,
 # So we can import tasks and then use tasks.ExampleTask
-__all__ = ["BaseTask", "ExampleTask"]
+__all__ = ["BaseTask", "ExampleTask", "CustomerReport"]
 
-from . import BaseTask, ExampleTask
+from .BaseTask import BaseTask
+from .CustomerReport import CustomerReport
