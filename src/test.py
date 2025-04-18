@@ -43,6 +43,11 @@ class TaskTest(unittest.TestCase):
             )
             self.assertEqual(username, "FlippantCarp84")
 
+    def test_cr_lim(self) :
+        cursor = self.db_conn.cursor()
+        task = tasks.CreditLimitUpdate(self.db_conn)
+        res = task.runTask("Toys Galore", 9999.99)
+
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
