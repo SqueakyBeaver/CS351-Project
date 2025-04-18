@@ -12,6 +12,9 @@ class CreditLimitUpdate(BaseTask):
         
         cursor = self.db_conn.cursor()
 
+        old_limit = (' SELECT CreditLimit '
+                  ' FROM Customer')
+
         creditUpdate = ('UPDATE Customer '
                         'SET CreditLimit = %s '
                         'WHERE CustomerName = %s')
@@ -24,3 +27,9 @@ class CreditLimitUpdate(BaseTask):
 
     # add a print statement to verify completion of task
     # 'credit limit for user "[user]" updated from [oldLim] to [newLim]'
+        if cursor.fetchone():
+            return (f"Credit Limit for User '{customer_name}'"
+            f"successfully updated from {old_limit} to {new_limit}")
+        else:
+            return "Could not update Credit Limit."
+
