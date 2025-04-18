@@ -102,8 +102,7 @@ def _populate_db(connection: mysql.connector.MySQLConnection):
         try:
             cursor.execute("INSERT INTO User VALUES (%s, %s)", params=[username, hash])
         except:
-            print(username, hash)
-            print(len(hash))
+            pass
         
 
 db_conn = _init_connection()
