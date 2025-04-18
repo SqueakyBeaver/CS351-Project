@@ -1,5 +1,3 @@
-import dbcfg
-
 from .BaseTask import BaseTask
 
 
@@ -11,7 +9,7 @@ class CustomerReport(BaseTask):
         if not customer_name:
             return (None, None)
 
-        cursor = dbcfg.db_conn.cursor()
+        cursor = self.db_conn.cursor()
 
         # TODO: Add more information to reports?
         # Joins are overpowered, apparently

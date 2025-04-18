@@ -2,7 +2,6 @@ from PySide6 import QtCore, QtWidgets
 
 # To run: use the command py -3 src/UI/example.py
 
-
 class ExampleWidget(QtWidgets.QWidget):
     def __init__(self):
         super().__init__()

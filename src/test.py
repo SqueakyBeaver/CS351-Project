@@ -17,7 +17,7 @@ class TaskTest(unittest.TestCase):
         self.db_conn.close()
 
     def test_customer_report(self):
-        task = tasks.CustomerReport()
+        task = tasks.CustomerReport(self.db_conn)
         res = task.runTask("Toys Galore")
         
         self.assertTupleEqual(res, ("Toys Galore", 208.94))
