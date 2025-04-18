@@ -42,6 +42,21 @@ NumOrdered DECIMAL(3,0),
 QuotedPrice DECIMAL(6,2),
 PRIMARY KEY (OrderNum, ItemNum) );
 
+CREATE TABLE User
+(username VARCHAR(32) UNIQUE,
+passwordHash CHAR(97),
+PRIMARY KEY (username, passwordHash) );
+
+CREATE TABLE Logins
+(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(32),
+loginTime DATETIME );
+
+CREATE TABLE Logouts
+(id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(32),
+loginTime DATETIME );
+
 INSERT INTO REP
 VALUES
 ('15','Campos','Rafael','724 Vinca Dr.','Grove','CA','90092',23457.50,0.06);
