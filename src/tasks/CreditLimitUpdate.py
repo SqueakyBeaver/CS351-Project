@@ -6,20 +6,18 @@ class CreditLimitUpdate(BaseTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs) 
 
-    def runTask(self, customer_name: str) :
-        if not customer_name:
-            return(None, None)
+    def runTask(self, customer_name: str, new_limit: float) :
+        if not customer_name or new_limit is None :
+            return(None, None, None)
         
         cursor = self.db_conn.cursor()
 
         creditUpdate = ('UPDATE Customer '
-                        'SET CreditLimit = %s '
+                        'SET CreditLimit = %f '
                         'WHERE CustomerName = %s')
         
-        # must define a var "new_limit" to hold customer's updated credit limit val. 
-        # New value should be based on user input
-        # params line will remain commented out until var is def and init
+        
         cursor.execute(
             creditUpdate,
-            #params=[new_limit ,customer_name],
+            params=[new_limit ,customer_name],
         )
