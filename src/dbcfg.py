@@ -45,6 +45,7 @@ def _init_connection(_dbname: str | None = None) -> mysql.connector.MySQLConnect
         print(f"Something went wrong while trying to create/use the database: {e}")
 
     db_conn.commit()
+    db_conn.autocommit = True
     return db_conn
 
 
@@ -103,7 +104,7 @@ def _populate_db(connection: mysql.connector.MySQLConnection):
         except:
             print(username, hash)
             print(len(hash))
-    
+        
 
 db_conn = _init_connection()
 _populate_db(db_conn)
