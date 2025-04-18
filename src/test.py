@@ -29,19 +29,9 @@ class TaskTest(unittest.TestCase):
         self.assertTupleEqual(res, ("Your mother", 0))
 
     def test_login(self):
-        cursor = self.db_conn.cursor()
-        hasher = argon2.PasswordHasher()
-
-        cursor.execute(
-            "SELECT username, passwordHash FROM User WHERE username = (%s)",
-            params=["FlippantCarp84"],
-        )
-
-        for username, hash in cursor:
-            self.assertTrue(
-                hasher.verify(str(hash), "supersecurepassword")
-            )
-            self.assertEqual(username, "FlippantCarp84")
+       task = tasks.LoginLogOut(self.db_conn)
+       res = task.runTask("FlippantCarp84", "supersecurepassword")
+       self.assertTrue(res)
 
     def test_cr_lim(self) :
         cursor = self.db_conn.cursor()
