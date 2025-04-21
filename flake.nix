@@ -141,10 +141,10 @@
                 pip
                 keyring
                 mysql-connector
-                pyside6
-                shiboken6
+                tkinter
               ])
-          )
+            )
+            pkgs."python${concatMajorMinor version}Packages".tkinter
         ];
       };
     });

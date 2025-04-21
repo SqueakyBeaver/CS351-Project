@@ -1,4 +1,14 @@
+from dataclasses import dataclass
+
 from .BaseTask import BaseTask
+
+
+@dataclass
+class Item:
+    description: str
+    price_single: float
+    num_ordered: int
+    quoted_price: float
 
 
 class CustomerReport(BaseTask):
@@ -9,13 +19,13 @@ class CustomerReport(BaseTask):
         if not customer_name:
             return (None, None)
 
-        cursor = self.db_conn.cursor()
+        cursor = self.db_conn.cursor(buffered=True)
 
         # TODO: Add more information to reports?
         # Joins are overpowered, apparently
         cursor.execute(
             """
-        SELECT QuotedPrice FROM Orderline, Orders, Customer WHERE
+        SELECT ItemNum, NumOrdered, QuotedPrice FROM Orderline, Orders, Customer WHERE
         Orderline.orderNum = Orders.orderNum AND
         Orders.CustomerNum = Customer.CustomerNum AND
         Customer.CustomerName = (%s)
@@ -23,10 +33,21 @@ class CustomerReport(BaseTask):
             params=[customer_name],
         )
 
-        try:
-            total_price = sum([float(i[0]) for i in cursor])
-        except TypeError:
-            # Malformed data probably (the price is not a float)
-            pass
+        items: list[Item] = []
+        for item_num, num_ordered, quoted_price in cursor.fetchall():
+            cursor.execute(
+                """
+            SELECT Description, Price FROM Item WHERE ItemNum = %s
+            """,
+                params=[str(item_num)],
+            )
 
-        return (customer_name, total_price)
+            desc, single_price = cursor.fetchone()
+            print(desc, single_price)
+
+            items.append(
+                Item(desc, float(single_price), int(num_ordered), float(quoted_price))
+            )
+
+        total_price = sum(i.quoted_price for i in items)
+        return (items, total_price)

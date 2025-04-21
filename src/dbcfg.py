@@ -50,7 +50,13 @@ def _init_connection(_dbname: str | None = None) -> mysql.connector.MySQLConnect
 
 
 def _generate_logins() -> list[tuple[str, str]]:
-    usernames: list[str] = ["FlippantCarp84", "NobleGar37", "ChickenNugget9", "joem1997", "1c1cl3"]
+    usernames: list[str] = [
+        "FlippantCarp84",
+        "NobleGar37",
+        "ChickenNugget9",
+        "joem1997",
+        "1c1cl3",
+    ]
     # Not meant to be secure, please don't use these
     passwords: list[str] = [
         "supersecurepassword",
@@ -65,7 +71,7 @@ def _generate_logins() -> list[tuple[str, str]]:
 
     for u, p in zip(usernames, passwords):
         users.append((u, hasher.hash(p)))
-    
+
     return users
 
 
@@ -103,7 +109,7 @@ def _populate_db(connection: mysql.connector.MySQLConnection):
             cursor.execute("INSERT INTO User VALUES (%s, %s)", params=[username, hash])
         except:
             pass
-        
+
 
 db_conn = _init_connection()
 _populate_db(db_conn)
