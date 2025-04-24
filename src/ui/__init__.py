@@ -1,4 +1,4 @@
-__all__ = ["customerReportWidget"]
+__all__ = ["CustomerReportWidget", "ExampleWidget"]
 
-
-from .CustomerReport import customerReportWidget
+from .example import ExampleWidget
+from .CustomerReport import CustomerReportWidget

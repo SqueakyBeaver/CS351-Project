@@ -1,8 +1,10 @@
-import ui
-import dbcfg
-import customtkinter as ctk
-import tasks
 import sys
+
+import customtkinter as ctk
+
+import dbcfg
+import tasks
+import ui
 
 if not dbcfg.db_conn.is_connected():
     print("ERROR: Database not connected/configured properly")
@@ -20,8 +22,18 @@ app = ctk.CTk()
 app.title("Example Window")
 app.geometry("1280x720")
 
-# TODO: When login UI is implemented, we should start there
-ui.customerReportWidget(app, tasks.CustomerReport(dbcfg.db_conn))
+# TODO: Make separate login page that opens first,
+# then "main" page that holds all the other tasks
+
+# Initialize a widget class. The first arg will be the parent of the widget (currently `app`)
+# The other args are up to you, but one should be the task associated with the widget
+customer_report_widget = ui.CustomerReportWidget(
+    app, tasks.CustomerReport(dbcfg.db_conn)
+)
+# Place the widget on the window's "grid"
+customer_report_widget.grid(row=0, column=0, padx=20, pady=20, sticky="w")
+
+example_widget = ui.ExampleWidget(app, tasks.BaseTask)
+example_widget.grid(row=0, column=2, padx=20, pady=20, sticky="e")
 
 app.mainloop()
-

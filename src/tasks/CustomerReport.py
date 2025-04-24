@@ -43,7 +43,6 @@ class CustomerReport(BaseTask):
             )
 
             desc, single_price = cursor.fetchone()
-            print(desc, single_price)
 
             items.append(
                 Item(desc, float(single_price), int(num_ordered), float(quoted_price))
