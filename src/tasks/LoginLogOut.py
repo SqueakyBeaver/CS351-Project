@@ -1,5 +1,7 @@
 from .BaseTask import BaseTask
 import argon2
+from datetime import datetime
+
 
 class Login(BaseTask):
     def __init__(self, *args, **kwargs):
@@ -7,13 +9,21 @@ class Login(BaseTask):
 
     def runTask(self, userInput, passwordInput):
         cursor = self.db_conn.cursor()  # Execute an SQL query
-        
+
         hasher = argon2.PasswordHasher()
         cursor.execute(
             "SELECT username, passwordHash FROM User WHERE username = %s",
             params=[userInput],
         )
 
+        login_res = False
         for username, hash in cursor:
-            return hasher.verify(hash, passwordInput)
-            
+            login_res = hasher.verify(hash, passwordInput)
+
+        if login_res:
+            cursor.execute(
+                "INSERT INTO Logins (username, loginTime) VALUES (%s, %s)",
+                params=[userInput, datetime.now()],
+            )
+
+        return login_res

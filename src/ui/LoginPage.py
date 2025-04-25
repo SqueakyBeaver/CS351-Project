@@ -57,11 +57,12 @@ class LoginPage(ctk.CTkFrame):
         self.loginError.destroy()
 
         if not login_good:
-            self.loginError = ctk.CtkLabel(
+            self.loginError = ctk.CTkLabel(
                 self,
                 text="Username or Password is incorrect",
                 text_color="red",
             )
+            self.loginError.grid(row=3, column=0, padx=20, pady=20, sticky="ew")
             return
 
         self.master.main_page = ui.MainPage(self.master, self.db_conn)
