@@ -13,6 +13,16 @@ Insert project description here
 - Source files
   - Found in the directory/folder `src/`
 
+# Valid Logins
+| Username | Password |
+| -------- | -------- |
+| FlippantCarp84 | supersecurepassword |
+| NobleGar37 | correcthorsebatterystaple |
+| ChickenNugget9 | hotdog |
+| joem1997 | 19970806 |
+| 1c1cl3 | 3xfa#ggrsH884@fCdx |
+
+
 # TODO
 - [ ] Database config (probably use JSON)
 - [ ] GUI windows

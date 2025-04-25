@@ -1,5 +1,6 @@
-__all__ = ["CustomerReportWidget", "ExampleWidget", "MainPage"]
+__all__ = ["CustomerReportWidget", "ExampleWidget", "MainPage", "LoginPage"]
 
-from .example import ExampleWidget
 from .CustomerReport import CustomerReportWidget
+from .example import ExampleWidget
+from .LoginPage import LoginPage
 from .MainPage import MainPage

@@ -1,7 +1,7 @@
 from .BaseTask import BaseTask
 import argon2
 
-class LoginLogOut(BaseTask):
+class Login(BaseTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 

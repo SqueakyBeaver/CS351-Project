@@ -3,7 +3,6 @@ import sys
 import customtkinter as ctk
 
 import dbcfg
-import tasks
 import ui
 
 if not dbcfg.db_conn.is_connected():
@@ -28,8 +27,11 @@ app.grid_columnconfigure(0, weight=1)
 
 # TODO: Make login page that bring up the main page when logged in
 # Also add logout button that does the opposite
-main_page = ui.MainPage(app, dbcfg.db_conn)
-main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
+login_page = ui.LoginPage(app, dbcfg.db_conn)
+login_page.grid(row=0, column=0, padx=20, pady=20, sticky="nesw")
+
+# main_page = ui.MainPage(app, dbcfg.db_conn)
+# main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
 
 
 app.mainloop()
