@@ -27,7 +27,7 @@ CREATE TABLE Orders
 (OrderNum CHAR(5) PRIMARY KEY,
 OrderDate DATE,
 CustomerNum CHAR(3),
-FOREIGN KEY (CustomerNum) REFERENCES Customer (CustomerNum);
+FOREIGN KEY (CustomerNum) REFERENCES Customer (CustomerNum) );
 
 CREATE TABLE Item
 (ItemNum CHAR(4) PRIMARY KEY,
