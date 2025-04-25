@@ -1,7 +1,8 @@
-import argon2
 import unittest
+
 import tasks
 from dbcfg import _init_connection, _populate_db
+from tasks.CustomerReport import Item
 
 
 class TaskTest(unittest.TestCase):
@@ -20,20 +21,39 @@ class TaskTest(unittest.TestCase):
         task = tasks.CustomerReport(self.db_conn)
         res = task.runTask("Toys Galore")
 
-        self.assertTupleEqual(res, ("Toys Galore", 208.94))
+        self.assertTupleEqual(
+            res,
+            (
+                [
+                    Item(
+                        description="Wood Block Set (48 piece)",
+                        price_single=89.49,
+                        num_ordered=5,
+                        quoted_price=86.99,
+                    ),
+                    Item(
+                        description="Rocking Horse",
+                        price_single=124.95,
+                        num_ordered=2,
+                        quoted_price=121.95,
+                    ),
+                ],
+                208.94,
+            ),
+        )
 
         res = task.runTask("")
         self.assertTupleEqual(res, (None, None))
 
         res = task.runTask("Construction Incorporated")
-        self.assertTupleEqual(res, ("Construction Incorporated", 0))
+        self.assertTupleEqual(res, ([], 0))
 
     def test_login(self):
-       task = tasks.LoginLogOut(self.db_conn)
-       res = task.runTask("FlippantCarp84", "supersecurepassword")
-       self.assertTrue(res)
+        task = tasks.Login(self.db_conn)
+        res = task.runTask("FlippantCarp84", "supersecurepassword")
+        self.assertTrue(res)
 
-    def test_cr_lim(self) :
+    def test_cr_lim(self):
         cursor = self.db_conn.cursor()
         task = tasks.CreditLimitUpdate(self.db_conn)
         res = task.runTask("Toys Galore", 9999.99)
