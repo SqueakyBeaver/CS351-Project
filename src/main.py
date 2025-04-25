@@ -22,18 +22,14 @@ app = ctk.CTk()
 app.title("Example Window")
 app.geometry("1280x720")
 
-# TODO: Make separate login page that opens first,
-# then "main" page that holds all the other tasks
+# Make the pages take up the entire window
+app.grid_rowconfigure(0, weight=1)
+app.grid_columnconfigure(0, weight=1)
 
-# Initialize a widget class. The first arg will be the parent of the widget (currently `app`)
-# The other args are up to you, but one should be the task associated with the widget
-customer_report_widget = ui.CustomerReportWidget(
-    app, tasks.CustomerReport(dbcfg.db_conn)
-)
-# Place the widget on the window's "grid"
-customer_report_widget.grid(row=0, column=0, padx=20, pady=20, sticky="w")
+# TODO: Make login page that bring up the main page when logged in
+# Also add logout button that does the opposite
+main_page = ui.MainPage(app, dbcfg.db_conn)
+main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
 
-example_widget = ui.ExampleWidget(app, tasks.BaseTask)
-example_widget.grid(row=0, column=2, padx=20, pady=20, sticky="e")
 
 app.mainloop()

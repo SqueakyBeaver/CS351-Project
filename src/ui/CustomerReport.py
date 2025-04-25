@@ -41,7 +41,7 @@ class CustomerReportWidget(ctk.CTkFrame):
         items, total_price = self.task.runTask(self.cust_name.get())
         # Not necessary to do it here,
         # but I prefer to do any data operations before any ui operations
-        items = [dataclasses.astuple(i) for i in items] or None
+        items = [dataclasses.astuple(i) for i in items] if items else None
 
         # Cleanup widgets that will change
         # We have to check to make sure they exist

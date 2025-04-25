@@ -10,6 +10,8 @@ class ExampleWidget(ctk.CTkFrame):
     def __init__(self, ctk_app, task):
         super().__init__(ctk_app)
 
+        self.grid_columnconfigure(0, weight=1)
+
         self.label_txt = ["Hiiiiiiiii", "Okay I see how it is >:("]
         self.btn_txt = ["Go away", "Wait, no, come back!"]
 
@@ -19,7 +21,7 @@ class ExampleWidget(ctk.CTkFrame):
         self.text.grid(row=0, column=0, padx=20, pady=20, sticky="ew")
 
         self.btn = ctk.CTkButton(self, text=self.btn_txt[0], command=self.on_click)
-        self.btn.grid(row=1, column=1, padx=20, pady=20)
+        self.btn.grid(row=1, column=0, padx=20, pady=20)
 
     def on_click(self):
         # Use `cget()` to get the current value of a widget's attribute
