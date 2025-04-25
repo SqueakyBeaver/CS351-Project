@@ -20,12 +20,14 @@ State CHAR(2),
 PostalCode CHAR(5),
 Balance DECIMAL(8,2),
 CreditLimit DECIMAL(8,2),
-RepNum CHAR(2) );
+RepNum CHAR(2) ,
+FOREIGN KEY (RepNum) REFERENCES Rep (RepNum) );
 
 CREATE TABLE Orders
 (OrderNum CHAR(5) PRIMARY KEY,
 OrderDate DATE,
-CustomerNum CHAR(3) );
+CustomerNum CHAR(3),
+FOREIGN KEY (CustomerNum) REFERENCES Customer (CustomerNum);
 
 CREATE TABLE Item
 (ItemNum CHAR(4) PRIMARY KEY,
@@ -36,11 +38,13 @@ Storehouse CHAR(1),
 Price DECIMAL(6,2) );
 
 CREATE TABLE OrderLine
-(orderNum CHAR(5),
+(OrderNum CHAR(5),
 ItemNum CHAR(4),
 NumOrdered DECIMAL(3,0),
 QuotedPrice DECIMAL(6,2),
-PRIMARY KEY (OrderNum, ItemNum) );
+PRIMARY KEY (OrderNum, ItemNum),
+FOREIGN KEY (OrderNum) REFERENCES Orders (OrderNum),
+FOREIGN KEY (ItemNum) REFERENCES Item (ItemNum) );
 
 CREATE TABLE User
 (username VARCHAR(32) UNIQUE,
@@ -50,12 +54,15 @@ PRIMARY KEY (username, passwordHash) );
 CREATE TABLE Logins
 (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(32),
-loginTime DATETIME );
+loginTime DATETIME,
+FOREIGN KEY (username) REFERENCES User (username) );
 
 CREATE TABLE Logouts
 (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 username VARCHAR(32),
-loginTime DATETIME );
+loginTime DATETIME,
+FOREIGN KEY (username) REFERENCES User (username) );
+
 
 INSERT INTO REP
 VALUES
