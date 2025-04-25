@@ -25,8 +25,8 @@ class TaskTest(unittest.TestCase):
         res = task.runTask("")
         self.assertTupleEqual(res, (None, None))
 
-        res = task.runTask("Your mother")
-        self.assertTupleEqual(res, ("Your mother", 0))
+        res = task.runTask("Construction Incorporated")
+        self.assertTupleEqual(res, ("Construction Incorporated", 0))
 
     def test_login(self):
        task = tasks.LoginLogOut(self.db_conn)
