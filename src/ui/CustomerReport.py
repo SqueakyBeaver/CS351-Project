@@ -67,7 +67,7 @@ class CustomerReportWidget(ctk.CTkFrame):
         self.res_table = CTkTable(
             self,
             values=[
-                ("Item Description", "Item Price", "Aomunt Ordered", "Quoted Price")
+                ("Item Description", "Item Price", "Amount Ordered", "Quoted Price")
             ]
             + items,
         )
