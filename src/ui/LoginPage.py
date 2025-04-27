@@ -65,7 +65,7 @@ class LoginPage(ctk.CTkFrame):
             self.loginError.grid(row=3, column=0, padx=20, pady=20, sticky="ew")
             return
 
-        self.master.main_page = ui.MainPage(self.master, self.db_conn)
-        self.master.main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
+        main_page = ui.MainPage(self.master, self.db_conn)
         self.destroy()
+        main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
 
