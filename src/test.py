@@ -3,6 +3,7 @@ import unittest
 import tasks
 from dbcfg import _init_connection, _populate_db
 from tasks.CustomerReport import Item
+from decimal import Decimal
 
 
 class TaskTest(unittest.TestCase):
@@ -58,6 +59,11 @@ class TaskTest(unittest.TestCase):
         task = tasks.CreditLimitUpdate(self.db_conn)
         res = task.runTask("Toys Galore", 9999.99)
 
+    def test_rep_rep(self):
+        cursor = self.db_conn.cursor()
+        task = tasks.RepresentativeReport(self.db_conn)
+        res = task.runTask()
+        self.assertListEqual(res, [('15', 'Campos', 'Rafael', 4, Decimal('2851.5875')), ('30', 'Gradey', 'Megan', 4, Decimal('1152.285')), ('45', 'Tian', 'Hui', 4, Decimal('1568.0625')), ('60', 'Sefton', 'Janet', 0, 0)])
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
