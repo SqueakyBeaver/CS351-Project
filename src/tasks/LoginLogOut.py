@@ -27,3 +27,17 @@ class Login(BaseTask):
             )
 
         return login_res
+    
+
+class Logout(BaseTask):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def runTask(self, userInput, passwordInput):
+        cursor = self.db_conn.cursor()  # Execute an SQL query
+
+        cursor.execute(
+            "INSERT INTO Logouts (username, loginTime) VALUES (%s, %s)",
+            params=[userInput, datetime.now()],
+        )
+
