@@ -21,8 +21,8 @@ class MainPage(ctk.CTkFrame):
         # Place the widget on the window's "grid"
         self.customer_report_widget.grid(row=0, column=0, padx=20, pady=20, sticky="w")
 
-        self.example_widget = ui.ExampleWidget(self, tasks.BaseTask)
-        self.example_widget.grid(row=0, column=2, padx=20, pady=20, sticky="e")
+        self.add_rep_widget = ui.AddRepresentativeWidget(self, self.db_conn)
+        self.add_rep_widget.grid(row=0, column=2, padx=20, pady=20, sticky="e")
 
         self.logout_button = ctk.CTkButton(
             self, text="logout", command=self.logoutClicked
