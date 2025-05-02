@@ -1,52 +1,50 @@
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from decimal import Decimal
 
 from .BaseTask import BaseTask
 
 
 @dataclass
-class Item:
-    description: str
-    price_single: float
-    num_ordered: int
-    quoted_price: float
+class Customer:
+    name: str
+    total_ordered: int
+    total_quoted_price: Decimal
+    num_orders: int
+    balance: Decimal
+    credit_limit: Decimal
 
 
 class CustomerReport(BaseTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def runTask(self, customer_name: str):
+    def runTask(self, customer_name: str) -> Customer | None:
         if not customer_name:
-            return (None, None)
+            return None
 
         cursor = self.db_conn.cursor(buffered=True)
 
-        # TODO: Add more information to reports?
-        # Joins are overpowered, apparently
         cursor.execute(
             """
-        SELECT ItemNum, NumOrdered, QuotedPrice FROM Orderline, Orders, Customer WHERE
-        Orderline.orderNum = Orders.orderNum AND
-        Orders.CustomerNum = Customer.CustomerNum AND
-        Customer.CustomerName = (%s)
+        SELECT CustomerName, SUM(NumOrdered), SUM(QuotedPrice), 
+        COUNT(Orders.orderNum), Balance, CreditLimit
+        FROM Orderline, Orders, Customer
+        WHERE Orderline.orderNum = Orders.orderNum
+        AND Orders.CustomerNum = Customer.CustomerNum
+        AND Customer.CustomerName = (%s)
         """,
             params=[customer_name],
         )
 
-        items: list[Item] = []
-        for item_num, num_ordered, quoted_price in cursor.fetchall():
-            cursor.execute(
-                """
-            SELECT Description, Price FROM Item WHERE ItemNum = %s
-            """,
-                params=[str(item_num)],
-            )
+        items = [list(i) for i in cursor.fetchall()]
+        # If there's duplicate entries for customers, then we should probably merge them
+        final_res = Customer(*items.pop(0))
 
-            desc, single_price = cursor.fetchone()
+        # Reducing calls/improving readability(ish)
+        customer_fields = list(asdict(final_res))
 
-            items.append(
-                Item(desc, float(single_price), int(num_ordered), float(quoted_price))
-            )
+        for row in items:
+            for idx, i in enumerate(row):
+                setattr(final_res, customer_fields[idx], i)
 
-        total_price = sum(i.quoted_price for i in items)
-        return (items, total_price)
+        return final_res

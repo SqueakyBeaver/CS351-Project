@@ -18,7 +18,7 @@ class CreditLimitUpdate(BaseTask):
             params=[customer_name],
         )
 
-        old_limit = float(cursor.fetchone())
+        old_limit = float(cursor.fetchone()[0])
 
         creditUpdate = "UPDATE Customer SET CreditLimit = %s WHERE CustomerName = %s"
 
