@@ -43,6 +43,7 @@ class RepReportWidget(ctk.CTkFrame):
                     ]
                 ]
                 + res,
+                corner_radius=7
             )
             
             self.res_widget.grid(row=2, column=0, padx=10, pady=10)

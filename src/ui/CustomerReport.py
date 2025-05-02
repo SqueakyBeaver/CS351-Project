@@ -64,6 +64,7 @@ class CustomerReportWidget(ctk.CTkFrame):
                     customer_info.credit_limit,
                 ),
             ],
+            corner_radius=7,
         )
         table.grid(row=1, column=0, padx=10, pady=10, sticky="ew")
 
