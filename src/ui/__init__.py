@@ -4,10 +4,14 @@ __all__ = [
     "MainPage",
     "LoginPage",
     "AddRepresentativeWidget",
+    "RepReportWidget",
+    "CreditLimitUpdateWidget",
 ]
 
+from .AddRepresentativeWidget import AddRepresentativeWidget
+from .CreditLimitUpdateWidget import CreditLimitUpdateWidget
 from .CustomerReport import CustomerReportWidget
 from .example import ExampleWidget
 from .LoginPage import LoginPage
 from .MainPage import MainPage
-from .AddRepresentativeWidget import AddRepresentativeWidget
+from .RepReportWidget import RepReportWidget

@@ -15,23 +15,23 @@ class CustomerReportWidget(ctk.CTkFrame):
         self.cust_name = ctk.StringVar()
 
         self.widget_label = ctk.CTkLabel(self, text="Get Customer's total quoted price")
-        self.widget_label.grid(row=0, column=0, padx=20, pady=(0, 20), sticky="ew")
+        self.widget_label.grid(row=0, column=0, padx=10, pady=(0, 10), sticky="ew")
 
         self.input_frame = ctk.CTkFrame(self, border_width=0, fg_color="transparent")
-        self.input_frame.grid(row=1, column=0, padx=20, pady=(0, 20))
+        self.input_frame.grid(row=1, column=0, padx=10, pady=(0, 10))
 
         self.input_label = ctk.CTkLabel(self.input_frame, text="Customer name")
-        self.input_label.grid(row=0, column=0, padx=(20, 5))
+        self.input_label.grid(row=0, column=0, padx=(10, 5))
 
         self.input_field = ctk.CTkEntry(self.input_frame, textvariable=self.cust_name)
-        self.input_field.grid(row=0, column=1, padx=(5, 20))
+        self.input_field.grid(row=0, column=1, padx=(5, 10))
         # Call submitInput() when the enter key is pressed
         self.input_field.bind("<Key-Return>", self.submitInput)
 
         self.submit_btn = ctk.CTkButton(
             self, text="Generate Report", command=self.submitInput
         )
-        self.submit_btn.grid(row=2, column=0, padx=20, pady=(0, 20))
+        self.submit_btn.grid(row=2, column=0, padx=10, pady=(0, 10))
 
         self.err_txt: ctk.CTkLabel = None
         self.res_table: CTkTable = None
@@ -67,13 +67,13 @@ class CustomerReportWidget(ctk.CTkFrame):
         self.res_table = CTkTable(
             self,
             values=[
-                ("Item Description", "Item Price", "Amount Ordered", "Quoted Price")
+                ("Item Desc.", "Item Price", "Amnt Ordered", "Quoted Price")
             ]
             + items,
         )
-        self.res_table.grid(row=3, column=0, padx=20, pady=20, sticky="ew")
+        self.res_table.grid(row=3, column=0, padx=10, pady=10, sticky="ew")
 
         self.total_qp = ctk.CTkLabel(
             self, text=f"The total quoted price is ${total_price}"
         )
-        self.total_qp.grid(row=4, column=0, padx=20, pady=20, sticky="ew")
+        self.total_qp.grid(row=4, column=0, padx=10, pady=10, sticky="ew")

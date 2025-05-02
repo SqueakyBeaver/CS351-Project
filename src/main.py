@@ -33,5 +33,4 @@ login_page.grid(row=0, column=0, padx=20, pady=20, sticky="nesw")
 # main_page = ui.MainPage(app, dbcfg.db_conn)
 # main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
 
-
 app.mainloop()

@@ -4,9 +4,6 @@ import customtkinter as ctk
 # See: https://customtkinter.tomschimansky.com/
 
 class ExampleWidget(ctk.CTkFrame):
-    # Python allows for nested functions :)
-    # Unfortunately, the functions need to be declared/defined before they're used
-    # The same cannot be said for variables, apparently
     def __init__(self, ctk_app, task):
         super().__init__(ctk_app)
 

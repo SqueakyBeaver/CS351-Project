@@ -50,7 +50,7 @@ class AddRepresentativeWidget(ctk.CTkFrame):
         self.submit_button = ctk.CTkButton(
             self, text="Add Representative", command=self.submitInput
         )
-        self.submit_button.grid(row=2, column=0, padx=20, pady=20, sticky="ew")
+        self.submit_button.grid(row=2, column=0, padx=20, pady=20, columnspan=2)
 
     def nextWidget(self, widget: ctk.CTkEntry):
         def command() -> None:
