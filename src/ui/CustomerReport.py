@@ -37,8 +37,11 @@ class CustomerReportWidget(ctk.CTkFrame):
 
     def submitInput(self, event=None):
         customer_info = self.task.runTask(self.cust_name.get())
+        
+        if self.res_widget:
+            self.res_widget.destroy()
 
-        if not customer_info:
+        if customer_info is None or  not customer_info.num_orders:
             self.res_widget = ctk.CTkLabel(
                 self,
                 text=f"No orders found for {self.cust_name.get() or 'customer'}",
