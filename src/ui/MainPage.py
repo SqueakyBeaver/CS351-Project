@@ -5,10 +5,11 @@ import ui
 
 
 class MainPage(ctk.CTkFrame):
-    def __init__(self, parent, db_conn, *args, **kwargs):
+    def __init__(self, parent, db_conn, username, *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
 
         self.db_conn = db_conn
+        self.username = username
 
         # self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
@@ -64,7 +65,9 @@ class MainPage(ctk.CTkFrame):
         self.logout_button.grid(row=0, column=2, padx=10, pady=10, sticky="e")
 
     def logoutClicked(self, event=None):
-        # TODO: run logout task
+        task = tasks.Logout(self.db_conn)
+        task.runTask(self.username)
+
         login_page = ui.LoginPage(self.master, self.db_conn)
         self.destroy()
         login_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")

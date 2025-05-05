@@ -49,7 +49,7 @@ class LoginPage(ctk.CTkFrame):
         self.username_field.focus()
 
     def submitInput(self, event=None):
-        login_good = self.login_task.runTask(
+        login_good, username = self.login_task.runTask(
             self.username.get(),
             self.password.get(),
         )
@@ -65,7 +65,7 @@ class LoginPage(ctk.CTkFrame):
             self.loginError.grid(row=3, column=0, padx=20, pady=20, sticky="ew")
             return
 
-        main_page = ui.MainPage(self.master, self.db_conn)
+        main_page = ui.MainPage(self.master, self.db_conn, username)
         self.destroy()
         main_page.grid(row=0, column=0, padx=5, pady=5, sticky="nesw")
 

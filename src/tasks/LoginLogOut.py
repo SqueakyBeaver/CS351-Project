@@ -1,6 +1,8 @@
-from .BaseTask import BaseTask
-import argon2
 from datetime import datetime
+
+import argon2
+
+from .BaseTask import BaseTask
 
 
 class Login(BaseTask):
@@ -26,18 +28,17 @@ class Login(BaseTask):
                 params=[userInput, datetime.now()],
             )
 
-        return login_res
-    
+        return (login_res, userInput)
+
 
 class Logout(BaseTask):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-    def runTask(self, userInput, passwordInput):
+    def runTask(self, username):
         cursor = self.db_conn.cursor()  # Execute an SQL query
 
         cursor.execute(
             "INSERT INTO Logouts (username, loginTime) VALUES (%s, %s)",
-            params=[userInput, datetime.now()],
+            params=[username, datetime.now()],
         )
-
