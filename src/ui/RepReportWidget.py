@@ -36,8 +36,8 @@ class RepReportWidget(ctk.CTkFrame):
                 values=[
                     [
                         "Rep Number",
-                        "First Name",
                         "Last Name",
+                        "First Name",
                         "# of Customers",
                         "Avg. Customer Bal",
                     ]
