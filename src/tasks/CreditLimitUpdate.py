@@ -9,16 +9,16 @@ class CreditLimitUpdate(BaseTask):
 
     def runTask(self, customer_name: str, new_limit: float):
         if not customer_name or new_limit is None:
-            return None
+            return (None, None)
 
         cursor = self.db_conn.cursor()
 
         cursor.execute(
-            "SELECT CreditLimit FROM Customer WHERE CustomerName = %s",
+            "SELECT CreditLimit, CustomerNum FROM Customer WHERE CustomerName = %s",
             params=[customer_name],
         )
 
-        old_limit = float(cursor.fetchone()[0])
+        res = cursor.fetchone()
 
         creditUpdate = "UPDATE Customer SET CreditLimit = %s WHERE CustomerName = %s"
 
@@ -27,7 +27,7 @@ class CreditLimitUpdate(BaseTask):
             params=[new_limit, customer_name],
         )
 
-        if cursor.fetchone():
-            return (old_limit, new_limit)
+        if res is not None:
+            return (res[0], new_limit)
         else:
             return (None, None)

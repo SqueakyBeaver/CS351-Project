@@ -6,7 +6,7 @@ import tasks
 class CreditLimitUpdateWidget(ctk.CTkFrame):
     res_widget: ctk.CTkLabel
 
-    def __init__(self, ctk_app, task: tasks.CustomerReport):
+    def __init__(self, ctk_app, task: tasks.CreditLimitUpdate):
         super().__init__(ctk_app)
 
         self.task = task
@@ -57,6 +57,7 @@ class CreditLimitUpdateWidget(ctk.CTkFrame):
             )
 
             if old_limit is None or new_limit is None:
+                print(old_limit, new_limit)
                 self.res_widget = ctk.CTkLabel(
                     self, text="Customer does not exist", text_color="red"
                 )
@@ -64,7 +65,7 @@ class CreditLimitUpdateWidget(ctk.CTkFrame):
                 self.res_widget = ctk.CTkLabel(
                     self,
                     text=f"Updated {self.cust_name.get()}'s credit"
-                    "limit from {old_limit} to {new_limit}.",
+                    f"limit from {old_limit} to {new_limit}.",
                 )
 
             self.res_widget.grid(row=3, column=0, padx=10, pady=10)
